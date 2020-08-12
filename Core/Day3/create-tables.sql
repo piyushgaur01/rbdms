@@ -48,3 +48,10 @@ SemesterMarks     numeric(3),
 Grade             char(1)
 );
 
+CREATE TABLE Department
+(
+  DepartmentId      numeric(2)   CONSTRAINT  department_pk            PRIMARY KEY,
+  DepartmentName    varchar(30)  CONSTRAINT  department_dname_notnull NOT NULL,
+  HeadOfDepartment  varchar(4)
+);
+
