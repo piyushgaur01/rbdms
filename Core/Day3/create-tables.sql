@@ -2,7 +2,7 @@ CREATE TABLE Applicant
 (
   ApplicantId     varchar(4)   CONSTRAINT applicant_pk                     PRIMARY KEY,
   ApplicantName   varchar(30)  CONSTRAINT applicant_applicantname_notnull  NOT NULL,
-  Emailid         varchar(30)  CONSTRAINT applicant_emailid_uq UNIQUE,
+  Emailid         varchar(30)  CONSTRAINT applicant_emailid_uq             UNIQUE,
   Address         varchar(50),
   City            varchar(15)
 );
@@ -25,5 +25,14 @@ ProjectMarks      numeric(3),
 AssignmentMarks   numeric(3),
 InternalMarks     numeric(3),
 SemesterExamMarks numeric(3)
+);
+
+CREATE TABLE Student
+(
+StudentId          varchar(4)  CONSTRAINT student_pk             PRIMARY KEY,
+ApplicantId        varchar(4)  CONSTRAINT student_fk_applid      REFERENCES Applicant(ApplicantId),
+CurrentSemester    numeric(1),
+UserId             varchar(15) CONSTRAINT student_userid_uq      UNIQUE,
+Password          char(1)      CONSTRAINT student_pass_notnull   NOT NULL
 );
 
