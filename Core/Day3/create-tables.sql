@@ -36,3 +36,15 @@ UserId             varchar(15) CONSTRAINT student_userid_uq      UNIQUE,
 Password          char(1)      CONSTRAINT student_pass_notnull   NOT NULL
 );
 
+CREATE TABLE Registration
+(
+StudentId         varchar(4)  CONSTRAINT registration_fk_studentid  REFERENCES Student(StudentId),
+CourseId          varchar(4)  CONSTRAINT registration_fk_courseid   REFERENCES Course(CourseId),
+DateOfExam        Date,
+ProjectMarks      numeric(3),
+AssignmentMarks   numeric(3),
+InternalMarks     numeric(3),
+SemesterMarks     numeric(3),
+Grade             char(1)
+);
+
