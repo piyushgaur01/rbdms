@@ -55,3 +55,12 @@ CREATE TABLE Department
   HeadOfDepartment  varchar(4)
 );
 
+CREATE TABLE Instructor
+(
+  InstructorId      varchar(4)   CONSTRAINT instructor_pk           PRIMARY KEY
+      CONSTRAINT    instructor_id_check CHECK (InstructorId like 'I%'),
+  InstructorName    varchar(30)  CONSTRAINT instructor_name_notnull NOT NULL,
+  DateOfJoining     date,
+  DepartmentId      numeric(2)   CONSTRAINT instructor_fk           REFERENCES Department(DepartmentId)
+);
+
