@@ -1,3 +1,8 @@
+/*
+Created for Postgres database
+Author: Piyush Gaur
+*/
+
 CREATE TABLE Applicant 
 (
   ApplicantId     varchar(4)   CONSTRAINT applicant_pk                     PRIMARY KEY,
@@ -62,5 +67,31 @@ CREATE TABLE Instructor
   InstructorName    varchar(30)  CONSTRAINT instructor_name_notnull NOT NULL,
   DateOfJoining     date,
   DepartmentId      numeric(2)   CONSTRAINT instructor_fk           REFERENCES Department(DepartmentId)
+);
+
+CREATE TABLE CourseAllocation
+(
+  AllocationId      numeric(4)   CONSTRAINT courseallocation_pk     PRIMARY KEY,
+  CourseId          varchar(4)   CONSTRAINT courseallocation_cid_fk REFERENCES Course(CourseId),
+  InstructorId      varchar(4)   CONSTRAINT courseallocation_iid_fk REFERENCES Instructor(InstructorId),
+  StartDate         date,
+  EndDate           date
+);
+
+CREATE TABLE Hostel
+(
+  HostelId          varchar(10),
+  RoomNo            numeric(3),
+  StudentId         varchar(4)   CONSTRAINT hostel_sid_fk     REFERENCES Student(StudentId),
+  HostelFee         numeric(6)   CONSTRAINT hostel_fee_check  CHECK (HostelFee > 0),
+    CONSTRAINT hostel_pk PRIMARY KEY (HostelId, RoomNo)
+);
+
+CREATE TABLE Attendance
+(
+  StudentId         varchar(4) CONSTRAINT attendance_sid_fk REFERENCES Student(StudentId),
+  CourseId          varchar(4) CONSTRAINT attendance_cid_fk REFERENCES Course(CourseId),
+  TotalLectureDays  numeric(3) CONSTRAINT attendance_check  CHECK (TotalLectureDays > 0),
+  NoOfDaysPresent   numeric(3)
 );
 
