@@ -38,7 +38,7 @@ StudentId          varchar(4)  CONSTRAINT student_pk             PRIMARY KEY,
 ApplicantId        varchar(4)  CONSTRAINT student_fk_applid      REFERENCES Applicant(ApplicantId),
 CurrentSemester    numeric(1),
 UserId             varchar(15) CONSTRAINT student_userid_uq      UNIQUE,
-Password          char(1)      CONSTRAINT student_pass_notnull   NOT NULL
+Password           char(15)      CONSTRAINT student_pass_notnull   NOT NULL
 );
 
 CREATE TABLE Registration
