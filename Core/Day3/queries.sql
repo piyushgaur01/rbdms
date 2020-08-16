@@ -72,3 +72,47 @@ Select branchid, count(*) from course where elective = 'Y' group by branchid
 Select CourseId, avg(projectmarks + assignmentmarks + internalmarks + semestermarks) 
 as total from registration group by courseid order by total desc
 
+--Ans5
+Select * from registration where dateofexam > '2008-01-01' and dateofexam < '2008-06-01';
+
+--Ans6
+Select ca.instructorid, i.instructorname, count(*) as count from courseallocation ca, instructor i 
+where ca.instructorid = i.instructorid group by i.instructorname, ca.instructorid order by count desc, ca.instructorid asc;
+
+--Ans7
+SELECT courseid, COUNT(*) FROM
+(SELECT courseid, instructorid, COUNT(*) FROM courseallocation GROUP BY courseid, instructorid ORDER BY courseid) AS temptable
+GROUP BY courseid HAVING COUNT(*) > 1
+
+--Ans8
+SELECT instructorid, COUNT(*) FROM
+(SELECT instructorid, courseid, COUNT(*) FROM courseallocation WHERE startdate > '2008-01-01' and enddate < '2008-12-31' 
+ GROUP BY instructorid,courseid ORDER BY instructorid) AS temptable
+GROUP BY instructorid HAVING COUNT(*) > 1
+
+--Ans9
+Select hostelid, count(*) from hostel group by hostelid
+
+--Ans10
+Select branchid, semester, sum(total) FROM
+(Select r.courseid, c.semester, c.branchid, (r.projectmarks + r.assignmentmarks + r.internalmarks + r.semestermarks) as total
+from registration r, course c where r.courseid = c.courseid) as temptable
+group by branchid, semester order by branchid, semester
+
+--Ans11 Simple Join
+
+--Ans12 Simple
+
+--Ans13
+Select a.applicantname, c.coursename from registration r, course c, applicant a, student s
+where a.applicantid = s.applicantid and r.courseid = c.courseid and r.studentid = s.studentid
+
+--Ans14 Simple
+
+--Ans15
+Select d.departmentname, i.instructorname from department d, instructor i
+where d.headofdepartment = i.instructorid and i.dateofjoining < '2008-01-01'
+
+--Ans24
+Select coursename from course where courseid in
+(Select distinct(courseid) from courseallocation where instructorid in (Select headofdepartment from department) order by courseid)
